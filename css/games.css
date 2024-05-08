@@ -70,13 +70,6 @@ section{
     padding:5rem 10%;
 }
 
-.heading-title{
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 6rem;
-    text-transform: uppercase;
-    color:var(--black);
-}
 .header{
     position: sticky;
     top:0; left:0; right:0;
@@ -96,99 +89,20 @@ section{
 .header h1{
     font-size: 3rem;
 }
-
-.home{
-    padding:0;
-}
-.home .slide{
-    text-align: center;
-    padding:2rem;
+.heading{
+    background-size: cover !important;
+    background-position: center !important;
+    padding-top: 10rem;
+    padding-bottom:15rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-size: cover !important;
-    background-position: center !important;
-    min-height: 60rem;
 }
-.home .slide .content{
-    width: 85rem;
-    display: none;
-}
-.home .swiper-slide-active .content{
-    display: inline-block;
-}
-.home .slide .content span{
-    display: block;
-    font-size: 2.2rem;
-    color: var(--light-white);
-    padding-bottom: 1rem;
-    animation:fadeIn .2s linear backwards .2s;
-}
-.home .slide .content h3{
-    font-size: 6vw;
-    color:var(--white);
+.heading h1{
+    font-size: 4rem;
     text-transform: uppercase;
-    line-height: 1;
+    color:var(--white);
     text-shadow: var(--text-shadow);
-    padding:1rem 0;
-    animation:fadeIn .2s linear backwards .4s;
-}
-.home .slide .content .btn{
-    animation:fadeIn .2s linear backwards .6s;
-}
-
-/*CAMBIOS FLECHAS SLIDE*/
-.home .swiper-button-next,
-.home .swiper-button-prev{
-   top:inherit;
-   left: inherit;
-   bottom: 0;
-   right: 0;
-   height: 7rem;
-   width: 7rem;
-   background: var(--white);
-   color:var(--black);
-}
-
-.home .swiper-button-next:hover,
-.home .swiper-button-prev:hover{
-   background: var(--main-color);
-   color:var(--white);
-}
-
-.home .swiper-button-next::after,
-.home .swiper-button-prev::after{
-   font-size: 2rem;
-}
-/**/
-.home .swiper-button-prev{
-    right: 7rem;
-}
-.home-about{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.home-about .image{
-    flex:1 1 41rem;
-}
-.home-about .image img{
-    width: 100%;
-}
-.home-about .content{
-    flex:1 1 41rem;
-    padding:3rem;
-    background: var(--light-bg);
-}
-.home-about .content h3{
-    font-size: 3rem;
-    color:var(--black);
-}
-.home-about .content p{
-    font-size: 1.5rem;
-    padding:1rem 0;
-    line-height: 2;
-    color:var(--black);
 }
 
 .btn{
@@ -204,27 +118,43 @@ section{
     background: var(--main-color);
 }
 
-.services .box-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 1.5rem;
+.recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
-.services .box-container .box{
-    padding:3rem 2rem;
-    text-align: center;
-    background: lightgrey;
-    cursor: pointer;
+/* Estilos para las tarjetas (cards) */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  
 }
-.services .box-container .box:hover{
-    background: rgb(255, 255, 158);
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-.services .box-container .box img{
-    height: 7rem;
+  
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: -10px;
 }
-.services .box-container .box h3{
-    color:black;
-    font-size: 1.7rem;
-    padding-top: 1rem;
+  
+.card-content h3 {
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+  
+.card-content p {
+    font-size: 14px;
+    color: #666;
 }
 
 /*Estilos Pie de Pagina*/
