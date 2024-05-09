@@ -104,7 +104,12 @@ section{
     color:var(--white);
     text-shadow: var(--text-shadow);
 }
-
+h1{
+    text-align: center;
+    margin-top: 48px;
+    font-size: 32px;
+    margin-bottom: 32px;
+}
 .btn{
     display: inline-block;
     background: var(--black);
@@ -118,44 +123,37 @@ section{
     background: var(--main-color);
 }
 
-.recommendations {
+
+/* Estilos para los contenedores de lugares */
+.juegos h2{
+    font-size: 20px;
+}
+.juegos p{
+    font-size: 12px;
+}
+.juegos {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    flex-wrap: wrap; 
+    display: flex;
+}
+.juegos:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+img {
+    max-width: 100%;
+    height: auto;
+}
+main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     padding: 20px;
-}
-/* Estilos para las tarjetas (cards) */
-.card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    transition: box-shadow 0.3s ease;
-    flex-wrap: wrap;
-  
-}
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-  
-.card img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: -10px;
-}
-  
-.card-content h3 {
-    font-size: 18px;
-    margin-bottom: 3px;
-}
-  
-.card-content p {
-    font-size: 14px;
-    color: #666;
 }
 
 /*Estilos Pie de Pagina*/

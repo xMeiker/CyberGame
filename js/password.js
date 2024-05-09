@@ -1,37 +1,90 @@
-// Desafío de contraseñas
-const passwordLevels = [
-    ["Password123", "Esta es la contraseña nivel 1"],
-    ["SecurePass456", "Esta es la contraseña nivel 2"],
-    ["SuperStrongPass789", "Esta es la contraseña nivel 3"]
-];
+//Juego Password
+// Estado base
+class PasswordState {
+    constructor(challenge) {
+        this.challenge = challenge;
+    }
 
-let currentPasswordLevel = 0;
+    handlePassword(isSecure) {
+        throw new Error('Este método debe ser implementado en las subclases');
+    }
 
-function showPasswordChallenge() {
-    const passwordChallengeContainer = document.getElementById('password-challenge-container');
-    passwordChallengeContainer.innerHTML = `
-        <p>¡Bienvenido al Desafío de Seguridad de Contraseñas - Nivel ${currentPasswordLevel + 1}!</p>
-        <p>Evalúa la siguiente contraseña y decide si es segura o no:</p>
-        <p>Contraseña: <span id="password">${passwordLevels[currentPasswordLevel][0]}</span></p>
-        <div>
-            <button onclick="checkPassword(true)">Segura</button>
-            <button onclick="checkPassword(false)">No Segura</button>
-        </div>
-        <p id="password-result"></p>
-    `;
+    show() {
+        this.challenge.showPasswordChallenge();
+    }
 }
 
-function checkPassword(isSecure) {
-    const resultElement = document.getElementById('password-result');
-    if ((isSecure && currentPasswordLevel === 0) || (!isSecure && currentPasswordLevel !== 0)) {
-        resultElement.textContent = "¡Correcto! Esta contraseña es segura.";
-        if (currentPasswordLevel < passwordLevels.length - 1) {
-            currentPasswordLevel++;
-            showPasswordChallenge();
+// Estado concreto: Estado de contraseña segura
+class PasswordStateSecure extends PasswordState {
+    handlePassword(isSecure) {
+        if (isSecure) {
+            this.challenge.correctAnswer();
+        } else {
+            this.challenge.incorrectAnswer();
         }
-    } else {
+    }
+}
+
+// Estado concreto: Estado de contraseña no segura
+class PasswordStateInsecure extends PasswordState {
+    handlePassword(isSecure) {
+        if (!isSecure) {
+            this.challenge.correctAnswer();
+        } else {
+            this.challenge.incorrectAnswer();
+        }
+    }
+}
+
+// Contexto
+class PasswordChallenge {
+    constructor() {
+        this.passwordLevels = [
+            ["Password123", "Esta es la contraseña nivel 1"],
+            ["SecurePass456", "Esta es la contraseña nivel 2"],
+            ["SuperStrongPass789", "Esta es la contraseña nivel 3"]
+        ];
+        this.currentPasswordLevel = 0;
+        this.state = new PasswordStateSecure(this);
+    }
+
+    setState(state) {
+        this.state = state;
+        this.show();
+    }
+
+    showPasswordChallenge() {
+        const passwordChallengeContainer = document.getElementById('password-challenge-container');
+        passwordChallengeContainer.innerHTML = `
+            <h1>¡Bienvenido al Desafío de Seguridad de Contraseñas - Nivel ${this.currentPasswordLevel + 1}!</h1>
+            <p>Evalúa la siguiente contraseña y decide si es segura o no:</p>
+            <p>Contraseña: <span id="password">${this.passwordLevels[this.currentPasswordLevel][0]}</span></p>
+            <div>
+                <button onclick="challenge.checkPassword(true)">Segura</button>
+                <button onclick="challenge.checkPassword(false)">No Segura</button>
+            </div>
+            <p id="password-result"></p>
+        `;
+    }
+
+    checkPassword(isSecure) {
+        this.state.handlePassword(isSecure);
+    }
+
+    correctAnswer() {
+        const resultElement = document.getElementById('password-result');
+        resultElement.textContent = "¡Correcto! Esta contraseña es segura.";
+        if (this.currentPasswordLevel < this.passwordLevels.length - 1) {
+            this.currentPasswordLevel++;
+            this.showPasswordChallenge();
+        }
+    }
+
+    incorrectAnswer() {
+        const resultElement = document.getElementById('password-result');
         resultElement.textContent = "Incorrecto. Esta contraseña no es segura.";
     }
 }
 
-showPasswordChallenge(); // Mostrar el desafío al cargar la página
+const challenge = new PasswordChallenge();
+challenge.showPasswordChallenge(); // Mostrar el desafío al cargar la página

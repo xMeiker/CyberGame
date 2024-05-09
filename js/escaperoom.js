@@ -37,7 +37,7 @@ class ChallengeFactory {
 function checkPassword() {
     var password = document.getElementById("password-input").value;
     var messageElement = document.getElementById("password-message");
-    if (password === "Seguridad123") {
+    if (password === "12680") {
         messageElement.textContent = "¡Contraseña correcta! Has desbloqueado el archivo seguro.";
         // Crear instancia del desafío de phishing
         const factory = new ChallengeFactory();

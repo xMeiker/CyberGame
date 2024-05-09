@@ -1,38 +1,80 @@
-// Juego de phishing
-const phishingLevels = [
-    ["phishing-email1.png", "Este es el correo electrónico de phishing nivel 1"],
-    ["phishing-email2.png", "Este es el correo electrónico de phishing nivel 2"],
-    ["phishing-email3.png", "Este es el correo electrónico de phishing nivel 3"]
-];
+// Estado base
+class PhishingState {
+    constructor(game) {
+        this.game = game;
+    }
 
-let currentPhishingLevel = 0;
+    handlePhishing(isPhishing) {
+        throw new Error('Este método debe ser implementado en las subclases');
+    }
 
-function showPhishingGame() {
-    const phishingGameContainer = document.getElementById('phishing-game-container');
-    phishingGameContainer.innerHTML = `
-        <p>¡Bienvenido al Juego de Identificación de Phishing - Nivel ${currentPhishingLevel + 1}!</p>
-        <p>Evalúa el siguiente correo electrónico y decide si es legítimo o de phishing:</p>
-        <img src="${phishingLevels[currentPhishingLevel][0]}" alt="Correo electrónico de phishing">
-        <div>
-            <button onclick="checkPhishing(true)">Phishing</button>
-            <button onclick="checkPhishing(false)">Legítimo</button>
-        </div>
-        <p id="phishing-result"></p>
-    `;
+    show() {
+        this.game.showPhishingGame();
+    }
 }
 
-function checkPhishing(isPhishing) {
-    const resultElement = document.getElementById('phishing-result');
-    if ((isPhishing && currentPhishingLevel === 0) || (!isPhishing && currentPhishingLevel !== 0)) {
-        resultElement.textContent = "¡Correcto! Este correo electrónico es de phishing.";
-        if (currentPhishingLevel < phishingLevels.length - 1) {
-            currentPhishingLevel++;
-            showPhishingGame();
+// Estado concreto: Estado de phishing
+class PhishingStatePhishing extends PhishingState {
+    handlePhishing(isPhishing) {
+        if (isPhishing) {
+            this.game.correctAnswer();
+        } else {
+            this.game.incorrectAnswer();
         }
-    } else {
+    }
+}
+
+// Contexto
+class PhishingGame {
+    constructor() {
+        this.phishingLevels = [
+            ["/assets/images/pishing1.jpg", "Este es el correo electrónico de phishing nivel 1"],
+            ["/assets/images/pishing2.jpg", "Este es el correo electrónico de phishing nivel 2"],
+            ["/assets/images/nopishing1.webp", "Este es el correo electrónico legítimo nivel 3"],
+            ["/assets/images/nopishing2.webp", "Este es el correo electrónico legítimo nivel 4"]
+            // Agrega más niveles aquí
+        ];
+        this.currentPhishingLevel = 0;
+        this.state = new PhishingStatePhishing(this);
+    }
+
+    setState(state) {
+        this.state = state;
+        this.show();
+    }
+
+    showPhishingGame() {
+        const phishingGameContainer = document.getElementById('phishing-game-container');
+        phishingGameContainer.innerHTML = `
+            <h1>¡Bienvenido al Juego de Identificación de Phishing - Nivel ${this.currentPhishingLevel + 1}!</h1>
+            <p>Evalúa el siguiente correo electrónico y decide si es legítimo o de phishing:</p>
+            <img src="${this.phishingLevels[this.currentPhishingLevel][0]}" alt="Correo electrónico de phishing">
+            <div>
+                <button onclick="game.checkPhishing(true)">Phishing</button>
+                <button onclick="game.checkPhishing(false)">Legítimo</button>
+            </div>
+            <p id="phishing-result"></p>
+        `;
+    }
+
+    checkPhishing(isPhishing) {
+        this.state.handlePhishing(isPhishing);
+    }
+
+    correctAnswer() {
+        const resultElement = document.getElementById('phishing-result');
+        resultElement.textContent = "¡Correcto! Este correo electrónico es de phishing.";
+        if (this.currentPhishingLevel < this.phishingLevels.length - 1) {
+            this.currentPhishingLevel++;
+            this.showPhishingGame(); // Mostrar el siguiente nivel
+        }
+    }
+
+    incorrectAnswer() {
+        const resultElement = document.getElementById('phishing-result');
         resultElement.textContent = "Incorrecto. Este correo electrónico no es de phishing.";
     }
 }
 
-showPhishingGame(); // Mostrar el juego al cargar la página
-
+const game = new PhishingGame();
+game.showPhishingGame(); // Mostrar el juego al cargar la página

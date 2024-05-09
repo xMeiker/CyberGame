@@ -26,25 +26,29 @@
                    <div class="menu-content">
                          <a href="index.html" class="menu-item">Inicio</a>
                          <a href="games.html" class="menu-item">Juegos</a>
-                         <a href="" class="menu-item">Retos</a>
-                         <a href="" class="menu-item">Acerca de</a>
+                         <a href="acercade.html" class="menu-item">Acerca de</a>
                    </div>
                 </div>
                 <div id="menu-btn" class="fas fa-bars"></div>
        
             </section>
              
-            <div class="heading" style="background:url(assets/images/games.jpg) no-repeat">
+            <div class="heading" style="background:url(assets/images/quiz-header.jpg) no-repeat">
                 <h1>Quiz de Seguridad</h1>
             </div>
 
-            <section id="cybersecurity-quiz">
-                <h2>Quiz de Ciberseguridad</h2>
-                <div id="quiz-container">
-                    <!-- Aquí irá el contenido del quiz -->
-                  
+            <div class="quiz-container">
+                <div id="question-container">
+                  <p id="question"></p>
+                  <form id="quiz-form">
+                    <select id="answer">
+                      <option value="">Selecciona una respuesta</option>
+                    </select>
+                    <button type="submit">Enviar</button>
+                  </form>
                 </div>
-            </section>
+                <p id="feedback"></p>
+            </div>
         </main>
         
         <!-- comienza la sección de pie de página  -->
